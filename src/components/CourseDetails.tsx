@@ -42,8 +42,6 @@ const CourseDetails = ({ dept, number }: CourseDetailsProps) => {
 
   useEffect(() => {
     updateDetails()
-    console.log('updating my own data')
-    console.log(courseDetails)
   }, [])
 
   const myData = courseDetails[courseKey]
