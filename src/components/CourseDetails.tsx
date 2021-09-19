@@ -2,21 +2,18 @@ import React, { useEffect } from 'react'
 import { useRecoilState } from 'recoil'
 import { courseDetailsState, fetchCourseDetails } from '../recoil/courseDetails'
 
-type CourseDetailsProps = {
-  dept: string,
-  number: number
-}
-
 const activities = [
   'REC',
   'LEC',
   'LAB',
 ]
 
+// todo: add more of the data pulled from api into this
 type Course = {
   activity: string
 }
 
+// function to get the number of a specific type of course meetings there are
 const courseActivityCount = (courses: Array<Course>,
   activity: typeof activities[number]) => {
   let count = 0
@@ -26,6 +23,12 @@ const courseActivityCount = (courses: Array<Course>,
   return count
 }
 
+type CourseDetailsProps = {
+  dept: string,
+  number: number
+}
+
+// shows details from cache + updates using useEffect
 const CourseDetails = ({ dept, number }: CourseDetailsProps) => {
   const [courseDetails, setCourseDetails] = useRecoilState(courseDetailsState)
 
@@ -40,10 +43,12 @@ const CourseDetails = ({ dept, number }: CourseDetailsProps) => {
     })
   }
 
+  // grab that data
   useEffect(() => {
     updateDetails()
   }, [])
 
+  // this will be a list of all the "course listings"
   const myData = courseDetails[courseKey]
 
   if (myData === undefined) {
