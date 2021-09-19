@@ -1,5 +1,7 @@
 import React, { useEffect } from 'react'
 import { useRecoilState } from 'recoil'
+import { motion } from 'framer-motion'
+
 import { courseDetailsState, fetchCourseDetails } from '../recoil/courseDetails'
 
 const activities = [
@@ -11,6 +13,7 @@ const activities = [
 // todo: add more of the data pulled from api into this
 type Course = {
   activity: string
+  prerequisite_notes: Array<string>
 }
 
 // function to get the number of a specific type of course meetings there are
@@ -21,6 +24,18 @@ const courseActivityCount = (courses: Array<Course>,
     if (course.activity === activity) count += 1
   })
   return count
+}
+
+// function to get prereqs for a list of courses
+const coursePrereqs = (courses: Array<Course>) => {
+  const out: Array<string> = []
+  courses.forEach(({ prerequisite_notes }) => {
+    prerequisite_notes.forEach((prereq) => {
+      if (out.indexOf(prereq) === -1) out.push(prereq)
+    })
+  })
+
+  return out
 }
 
 type CourseDetailsProps = {
@@ -57,24 +72,40 @@ const CourseDetails = ({ dept, number }: CourseDetailsProps) => {
 
   if (myData.length === 0) {
     return (
-      <div className="text-gray-400">
+      <motion.div
+        className="text-gray-400"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+      >
         No course data found!
-      </div>
+      </motion.div>
     )
   }
 
   const lecCount = courseActivityCount(myData, 'LEC')
   const recCount = courseActivityCount(myData, 'REC')
 
+  const prereqs = coursePrereqs(myData)
+
   return (
-    <div>
-      <p className="text-gray-400">
+    <motion.div
+      className="text-gray-400"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+    >
+      <p>
         { lecCount ? `${lecCount} Lecture${lecCount > 1 ? 's' : ''}` : null}
       </p>
-      <p className="text-gray-400">
+      <p>
         { recCount ? `${recCount} Recitation${recCount > 1 ? 's' : ''}` : null}
       </p>
-    </div>
+      { prereqs.length > 0 ? (
+        <div className="mt-2">
+          Prereqs:
+          { prereqs.map((prereq) => <p key={prereq}>{prereq}</p>)}
+        </div>
+      ) : null}
+    </motion.div>
   )
 }
 
