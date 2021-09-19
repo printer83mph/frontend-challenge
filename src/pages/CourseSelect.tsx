@@ -1,12 +1,13 @@
 import React from 'react'
+
 import Courses from '../components/Courses'
-import Cart from '../components/Cart'
+import CartButton from '../components/CartButton'
 
 const CourseSelect = () => (
-  <article className="container">
+  <div className="relative">
     <Courses />
-    <Cart />
-  </article>
+    <CartButton />
+  </div>
 )
 
 export default CourseSelect

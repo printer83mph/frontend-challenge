@@ -1,10 +1,10 @@
 import { atom } from 'recoil'
 
-const courseCart = atom({
+const courseCartState = atom({
   key: 'courseCartState',
   default: [],
 })
 
 // todo: implement selectors if needed
-
-export default courseCart
+// eslint-disable-next-line import/prefer-default-export
+export { courseCartState }

@@ -1,30 +1,31 @@
 import React from 'react'
 import { NavLink } from 'react-router-dom'
-
-const pages = [
-  {
-    name: 'Courses',
-    to: '/courses',
-  },
-]
+import { FiZap } from 'react-icons/fi'
 
 const Nav = () : JSX.Element => (
-  <div className="container py-3 px-5 flex justify-between items-center">
-    <h1 className="text-2xl font-bold tracking-tight">
-      Penn Course Cart
-    </h1>
-    <nav className="text-gray-500">
-      { pages.map(({ name, to }) => (
-        <NavLink
-          key={to}
-          to={to}
-          activeClassName="font-bold"
-        >
-          {name}
-        </NavLink>
-      )) }
+  <>
+    <nav
+      className="container mx-auto py-4 px-5 flex justify-between items-center fixed cursor-default z-10 bg-white"
+    >
+      <h1 className="text-2xl font-bold tracking-tight">
+        <FiZap className="inline mr-4" />
+        Penn Course Select
+      </h1>
+      <div className="text-gray-500">
+        {/* todo: in theory there would be a (expandable) nav here */}
+        {/* { pages.map(({ name, to }) => ( */}
+        {/*  <NavLink */}
+        {/*    key={to} */}
+        {/*    to={to} */}
+        {/*    activeClassName="font-bold" */}
+        {/*  > */}
+        {/*    {name} */}
+        {/*  </NavLink> */}
+        {/* )) } */}
+      </div>
     </nav>
-  </div>
+    <div style={{ height: '4rem' }} />
+  </>
 )
 
 export default Nav
