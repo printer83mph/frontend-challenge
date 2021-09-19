@@ -14,9 +14,7 @@ module.exports = {
         md: "100%",
         lg: "720px",
         xl: "940px",
-      },
-      "padding-left": "1rem",
-      "padding-right": "1rem"
+      }
     }
   },
 };

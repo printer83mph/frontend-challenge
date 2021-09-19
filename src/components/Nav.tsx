@@ -9,7 +9,6 @@ const pages = [
 ]
 
 const Nav = () : JSX.Element => (
-  // todo: get rid of this nasty inline
   <div className="container py-3 px-5 flex justify-between items-center">
     <h1 className="text-2xl font-bold tracking-tight">
       Penn Course Cart
@@ -17,6 +16,7 @@ const Nav = () : JSX.Element => (
     <nav className="text-gray-500">
       { pages.map(({ name, to }) => (
         <NavLink
+          key={to}
           to={to}
           activeClassName="font-bold"
         >

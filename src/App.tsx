@@ -1,19 +1,17 @@
 import React from 'react'
 
-import { BrowserRouter as Router } from 'react-router-dom'
+import { BrowserRouter as Router, Route } from 'react-router-dom'
+import { RecoilRoot } from 'recoil'
 import Nav from './components/Nav'
-import Courses from './components/Courses'
-import Cart from './components/Cart'
+import CourseSelect from './pages/CourseSelect'
 
 const App = () : JSX.Element => (
-  // todo: no more inline!!
-  <Router>
-    <Nav />
-    <article className="container">
-      <Courses />
-      <Cart />
-    </article>
-  </Router>
+  <RecoilRoot>
+    <Router>
+      <Nav />
+      <Route path={['/courses/', '/courses/:course']} component={CourseSelect} />
+    </Router>
+  </RecoilRoot>
 )
 
 export default App
