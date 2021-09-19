@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@snowpack/plugin-postcss": "^1.4.3",
+    "framer-motion": "^4.1.17",
     "postcss": "^8.3.6",
     "react": "^16.8.1",
     "react-dom": "^16.8.1",
