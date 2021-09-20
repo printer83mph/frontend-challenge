@@ -10,7 +10,7 @@ import Button from './Button'
 import CourseDetails from './CourseDetails'
 import CourseTitle from './CourseTitle'
 
-const isCourseEqual = ({ dept: d1, number: n1 }: CourseSelector, { dept: d2, number: n2 }: CourseSelector) => (d1 === d2 && n1 === n2)
+const isCourseEqual = (c1: CourseSelector, c2: CourseSelector) => (c1.dept === c2.dept && c1.number === c2.number)
 
 export default () => {
   const [courseCart, setCourseCart] = useRecoilState(courseCartState)

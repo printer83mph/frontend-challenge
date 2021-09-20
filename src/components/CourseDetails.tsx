@@ -43,19 +43,19 @@ const CourseDetails = ({ course }: CourseDetailsProps) => {
 
   const courseKey = `${dept.toLowerCase()}-${number}`
 
-  const updateDetails = async () => {
-    const newData = await fetchCourseDetails(course)
-    setCourseDetails((oldCourseDetails) => {
-      const newObj = { ...oldCourseDetails }
-      newObj[courseKey] = newData.courses
-      return newObj
-    })
-  }
-
   // grab that data
   useEffect(() => {
+    const updateDetails = async () => {
+      const newData = await fetchCourseDetails(course)
+      setCourseDetails((oldCourseDetails) => {
+        const newObj = { ...oldCourseDetails }
+        newObj[courseKey] = newData.courses
+        return newObj
+      })
+    }
+
     updateDetails()
-  }, [])
+  }, [course, courseKey, setCourseDetails])
 
   // this will be a list of all the "course listings"
   const myData = courseDetails[courseKey]
@@ -83,28 +83,30 @@ const CourseDetails = ({ course }: CourseDetailsProps) => {
 
   return (
     <motion.div
-      className="text-gray-400"
+      className="text-gray-400 flex items-center md:block"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
     >
-      { lecCount ? (
-        <p>
-          {lecCount}
-          {' '}
-          Lecture
-          {lecCount > 1 ? 's' : ''}
-        </p>
-      ) : null}
-      { recCount ? (
-        <p>
-          {recCount}
-          {' '}
-          Recitation
-          {recCount > 1 ? 's' : ''}
-        </p>
-      ) : null}
+      <div className="mr-6 md:mr-0">
+        { lecCount ? (
+          <p>
+            {lecCount}
+            {' '}
+            Lecture
+            {lecCount > 1 ? 's' : ''}
+          </p>
+        ) : null}
+        { recCount ? (
+          <p>
+            {recCount}
+            {' '}
+            Recitation
+            {recCount > 1 ? 's' : ''}
+          </p>
+        ) : null}
+      </div>
       { prereqs.length > 0 ? (
-        <div className="mt-2">
+        <div className="mr-4 md:mt-2 md:mr-0">
           Prereqs:
           { prereqs.map((prereq) => <p key={prereq}>{prereq}</p>)}
         </div>
