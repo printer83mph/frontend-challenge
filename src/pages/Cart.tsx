@@ -9,8 +9,6 @@ import Button from '../components/Button'
 import CourseTitle from '../components/CourseTitle'
 import { courseCartState } from '../recoil/courseCart'
 
-// todo: actually show important data and use json to show header and whatnot..
-//  then big checkout button
 const Cart = () => {
   const [courseCart, setCourseCart] = useRecoilState(courseCartState)
 
@@ -19,6 +17,7 @@ const Cart = () => {
   }
 
   // todo: use useEffect to fetch details for each course and display them
+  // todo: draggable/rearrangeable items
   return (
     <div className="mx-5 mb-5 relative">
       <ul className="">

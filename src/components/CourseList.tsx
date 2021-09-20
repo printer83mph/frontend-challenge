@@ -11,7 +11,7 @@ import CourseDetails from './CourseDetails'
 import CourseTitle from './CourseTitle'
 import { isCourseEqual, filterRemoveCourse, getCourseKey } from '../courseUtil'
 
-export default () => {
+const CourseList = () => {
   const [courseCart, setCourseCart] = useRecoilState(courseCartState)
   const { course: selectedCourse } = useParams<{ course?: string }>()
 
@@ -93,3 +93,5 @@ export default () => {
     </ul>
   )
 }
+
+export default CourseList
