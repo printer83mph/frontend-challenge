@@ -15,7 +15,8 @@ module.exports = {
     }
   ],
   plugins: [
-    "@snowpack/plugin-postcss"
+    "@snowpack/plugin-postcss",
+	"@snowpack/plugin-react-refresh"
   ],
   packageOptions: {
     /* ... */
