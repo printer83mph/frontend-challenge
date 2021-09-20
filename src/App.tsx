@@ -12,7 +12,7 @@ import PageNotFound from './pages/PageNotFound'
 const App = () : JSX.Element => (
   <RecoilRoot>
     <Router>
-      <div className="container relative overflow-x-hidden">
+      <div className="container relative">
         <Nav />
         <Switch>
           <Route path={['/courses/', '/courses/:course']} exact component={CourseSelect} />

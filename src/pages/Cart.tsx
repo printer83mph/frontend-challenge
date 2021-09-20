@@ -28,7 +28,7 @@ const Cart = () => {
               <motion.li
                 key={courseKey}
                 exit={{ height: '0px', opacity: 0, x: '50vw' }}
-                transition={{ ease: 'easeOut' }}
+                transition={{ ease: 'easeIn' }}
                 className="flex items-center h-14"
               >
                 <CourseTitle course={course} />
@@ -47,7 +47,16 @@ const Cart = () => {
             )
           })}
           { courseCart.length === 0
-            ? <motion.div className="text-xl text-gray-400"> You have no courses selected! </motion.div>
+            ? (
+              <motion.div
+                className="text-xl text-gray-400 overflow-y-hidden"
+                initial={{ height: '0' }}
+                animate={{ height: 'auto' }}
+              >
+                {' '}
+                You have no courses selected!
+              </motion.div>
+            )
             : null }
         </AnimatePresence>
       </ul>
