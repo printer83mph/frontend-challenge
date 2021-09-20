@@ -27,9 +27,9 @@ const Cart = () => {
             return (
               <motion.li
                 key={courseKey}
-                exit={{ height: '0px' }}
-                transition={{ ease: 'easeInOut' }}
-                className="flex items-center overflow-y-hidden h-14"
+                exit={{ height: '0px', opacity: 0, x: '50vw' }}
+                transition={{ ease: 'easeOut' }}
+                className="flex items-center h-14"
               >
                 <CourseTitle course={course} />
                 <Button
@@ -46,9 +46,11 @@ const Cart = () => {
               </motion.li>
             )
           })}
+          { courseCart.length === 0
+            ? <motion.div className="text-xl text-gray-400"> You have no courses selected! </motion.div>
+            : null }
         </AnimatePresence>
       </ul>
-      { courseCart.length === 0 ? <div className="text-xl text-gray-400"> You have no courses selected! </div> : null }
       <div className="flex my-5">
         <Link to="/courses" className="text-xl text-gray-500 px-4 py-2 rounded bg-gray-100 inline-block">
           <FiArrowLeft className="inline-block" />
