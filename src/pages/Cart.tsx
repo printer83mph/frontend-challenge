@@ -34,7 +34,7 @@ const Cart = () => {
               >
                 <CourseTitle course={course} />
                 <Button
-                  className="ml-auto"
+                  className="ml-auto text-xl"
                   onClick={((e) => {
                     e.preventDefault()
                     removeCourse(course)
@@ -50,11 +50,19 @@ const Cart = () => {
         </AnimatePresence>
       </ul>
       { courseCart.length === 0 ? <div className="text-xl text-gray-400"> You have no courses selected! </div> : null }
-      <Link to="/courses" className="my-5 text-xl text-gray-500 px-4 py-2 rounded bg-gray-100 inline-block">
-        <FiArrowLeft className="inline-block" />
-        {' '}
-        Back to Catalog
-      </Link>
+      <div className="flex my-5">
+        <Link to="/courses" className="text-xl text-gray-500 px-4 py-2 rounded bg-gray-100 inline-block">
+          <FiArrowLeft className="inline-block" />
+          {' '}
+          Back to Catalog
+        </Link>
+        <Button
+          className="ml-auto text-xl inline-block"
+          variant="confirm"
+        >
+          Confirm Selection
+        </Button>
+      </div>
     </div>
   )
 }

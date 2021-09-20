@@ -9,7 +9,7 @@ type ButtonProps = {
 }
 
 const variants = {
-  confirm: 'bg-blue-600 hover:bg-blue-700',
+  confirm: 'bg-blue-500 hover:bg-blue-600',
   add: 'bg-green-500 hover:bg-green-600',
   remove: 'bg-red-600 hover:bg-red-700',
 }

@@ -56,7 +56,7 @@ export default () => {
                 <div className="py-3 my-1 flex items-center">
                   <CourseTitle course={course} />
                   <Button
-                    className="ml-auto"
+                    className="ml-auto text-xl"
                     variant={courseIsSelected ? 'remove' : 'add'}
                     symmetrical
                     disabled={!canAddCourse(course) && !courseIsSelected}
