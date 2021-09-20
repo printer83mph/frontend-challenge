@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@snowpack/plugin-postcss": "^1.4.3",
+    "@snowpack/plugin-webpack": "^3.0.0",
     "@types/chroma-js": "^2.1.3",
     "autoprefixer": "^10.3.4",
     "chroma-js": "^2.1.2",
