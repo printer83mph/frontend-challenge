@@ -27,4 +27,9 @@ const Button = ({
   </button>
 )
 
+Button.defaultProps = {
+  disabled: false,
+  symmetrical: false,
+}
+
 export default Button
