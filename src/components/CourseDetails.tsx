@@ -1,37 +1,7 @@
-import React, { useEffect } from 'react'
-import { useRecoilState } from 'recoil'
+import React from 'react'
 import { motion } from 'framer-motion'
 
-import { getCourseKey } from '../courseUtil'
-import { courseDetailsState, fetchCourseDetails } from '../recoil/courseDetails'
-
-const activities = [
-  'REC',
-  'LEC',
-  'LAB',
-]
-
-// function to get the number of a specific type of course meetings there are
-const courseActivityCount = (courses: Array<CourseFetched>,
-  activity: typeof activities[number]) => {
-  let count = 0
-  courses.forEach((course: CourseFetched) => {
-    if (course.activity === activity) count += 1
-  })
-  return count
-}
-
-// function to get prereqs for a list of fetched courses
-const coursePrereqs = (courses: Array<CourseFetched>) => {
-  const out: Array<string> = []
-  courses.forEach(({ prerequisite_notes }) => {
-    prerequisite_notes.forEach((prereq) => {
-      if (out.indexOf(prereq) === -1) out.push(prereq)
-    })
-  })
-
-  return out
-}
+import useCourseDetails from '../hooks/useCourseDetails'
 
 type CourseDetailsProps = {
   course: CourseSelector
@@ -39,33 +9,15 @@ type CourseDetailsProps = {
 
 // shows details from cache + updates using useEffect
 const CourseDetails = ({ course }: CourseDetailsProps) => {
-  const { dept, number } = course
-  const [courseDetails, setCourseDetails] = useRecoilState(courseDetailsState)
+  const {
+    loading, data, courseActivityCount, coursePrereqs,
+  } = useCourseDetails(course)
 
-  const courseKey = getCourseKey(course)
-
-  // grab that data
-  useEffect(() => {
-    const updateDetails = async () => {
-      const newData = await fetchCourseDetails(course)
-      setCourseDetails((oldCourseDetails) => {
-        const newObj = { ...oldCourseDetails }
-        newObj[courseKey] = newData.courses
-        return newObj
-      })
-    }
-
-    updateDetails()
-  }, [course, courseKey, setCourseDetails])
-
-  // this will be a list of all the "course listings"
-  const myData = courseDetails[courseKey]
-
-  if (myData === undefined) {
+  if (loading || data === null) {
     return <div> </div>
   }
 
-  if (myData.length === 0) {
+  if (data.length === 0) {
     return (
       <motion.div
         className="text-gray-400"
@@ -77,10 +29,10 @@ const CourseDetails = ({ course }: CourseDetailsProps) => {
     )
   }
 
-  const lecCount = courseActivityCount(myData, 'LEC')
-  const recCount = courseActivityCount(myData, 'REC')
+  const lecCount = courseActivityCount('LEC')
+  const recCount = courseActivityCount('REC')
 
-  const prereqs = coursePrereqs(myData)
+  const prereqs = coursePrereqs()
 
   return (
     <motion.div
