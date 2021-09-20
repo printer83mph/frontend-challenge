@@ -10,24 +10,18 @@ const activities = [
   'LAB',
 ]
 
-// todo: add more of the data pulled from api into this
-type Course = {
-  activity: string
-  prerequisite_notes: Array<string>
-}
-
 // function to get the number of a specific type of course meetings there are
-const courseActivityCount = (courses: Array<Course>,
+const courseActivityCount = (courses: Array<CourseFetched>,
   activity: typeof activities[number]) => {
   let count = 0
-  courses.forEach((course: Course) => {
+  courses.forEach((course: CourseFetched) => {
     if (course.activity === activity) count += 1
   })
   return count
 }
 
-// function to get prereqs for a list of courses
-const coursePrereqs = (courses: Array<Course>) => {
+// function to get prereqs for a list of fetched courses
+const coursePrereqs = (courses: Array<CourseFetched>) => {
   const out: Array<string> = []
   courses.forEach(({ prerequisite_notes }) => {
     prerequisite_notes.forEach((prereq) => {
@@ -39,18 +33,18 @@ const coursePrereqs = (courses: Array<Course>) => {
 }
 
 type CourseDetailsProps = {
-  dept: string,
-  number: number
+  course: CourseSelector
 }
 
 // shows details from cache + updates using useEffect
-const CourseDetails = ({ dept, number }: CourseDetailsProps) => {
+const CourseDetails = ({ course }: CourseDetailsProps) => {
+  const { dept, number } = course
   const [courseDetails, setCourseDetails] = useRecoilState(courseDetailsState)
 
   const courseKey = `${dept.toLowerCase()}-${number}`
 
   const updateDetails = async () => {
-    const newData = await fetchCourseDetails({ dept, number })
+    const newData = await fetchCourseDetails(course)
     setCourseDetails((oldCourseDetails) => {
       const newObj = { ...oldCourseDetails }
       newObj[courseKey] = newData.courses
@@ -93,12 +87,22 @@ const CourseDetails = ({ dept, number }: CourseDetailsProps) => {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
     >
-      <p>
-        { lecCount ? `${lecCount} Lecture${lecCount > 1 ? 's' : ''}` : null}
-      </p>
-      <p>
-        { recCount ? `${recCount} Recitation${recCount > 1 ? 's' : ''}` : null}
-      </p>
+      { lecCount ? (
+        <p>
+          {lecCount}
+          {' '}
+          Lecture
+          {lecCount > 1 ? 's' : ''}
+        </p>
+      ) : null}
+      { recCount ? (
+        <p>
+          {recCount}
+          {' '}
+          Recitation
+          {recCount > 1 ? 's' : ''}
+        </p>
+      ) : null}
       { prereqs.length > 0 ? (
         <div className="mt-2">
           Prereqs:
