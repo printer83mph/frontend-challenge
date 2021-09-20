@@ -1,5 +1,4 @@
 import React from 'react'
-import { NavLink } from 'react-router-dom'
 import { FiZap } from 'react-icons/fi'
 
 const Nav = () : JSX.Element => (

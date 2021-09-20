@@ -1,5 +1,5 @@
 import React from 'react'
-import { useRecoilState, useRecoilValue } from 'recoil'
+import { useRecoilValue } from 'recoil'
 import { Link } from 'react-router-dom'
 import { FiArrowLeft } from 'react-icons/fi'
 

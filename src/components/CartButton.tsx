@@ -7,12 +7,8 @@ import { FiShoppingCart } from 'react-icons/fi'
 
 import { courseCartState } from '../recoil/courseCart'
 
-type CartButtonProps = {
-
-}
-
 // the thing that pops up at the bottom when we have courses selected
-const CartButton = (props: CartButtonProps) : JSX.Element => {
+const CartButton = () : JSX.Element => {
   const courseCart = useRecoilValue(courseCartState)
   return (
     <>
