@@ -18,7 +18,7 @@ const Button = ({
   children, variant, className, disabled = false, symmetrical = false, ...props
 }: ButtonProps & React.ComponentPropsWithoutRef<'button'>) => (
   <button
-    className={`${symmetrical ? 'px-4' : 'px-2'} py-2 text-white rounded shadow transition ${variants[variant]} ${className} ${disabled && 'opacity-30'}`}
+    className={`${symmetrical ? 'px-2' : 'px-4'} py-2 text-white rounded shadow transition ${variants[variant]} ${className} ${disabled && 'opacity-30'}`}
     type="button"
     disabled={disabled}
     {...props}

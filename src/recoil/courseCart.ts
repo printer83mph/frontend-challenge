@@ -1,6 +1,6 @@
 import { atom } from 'recoil'
 
-const courseCartState = atom({
+const courseCartState = atom<Array<Course>>({
   key: 'courseCartState',
   default: [],
 })

@@ -2,6 +2,7 @@ import React, { useEffect } from 'react'
 import { useRecoilState } from 'recoil'
 import { motion } from 'framer-motion'
 
+import { getCourseKey } from '../courseUtil'
 import { courseDetailsState, fetchCourseDetails } from '../recoil/courseDetails'
 
 const activities = [
@@ -41,7 +42,7 @@ const CourseDetails = ({ course }: CourseDetailsProps) => {
   const { dept, number } = course
   const [courseDetails, setCourseDetails] = useRecoilState(courseDetailsState)
 
-  const courseKey = `${dept.toLowerCase()}-${number}`
+  const courseKey = getCourseKey(course)
 
   // grab that data
   useEffect(() => {

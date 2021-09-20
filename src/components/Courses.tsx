@@ -9,8 +9,7 @@ import { courseCartState } from '../recoil/courseCart'
 import Button from './Button'
 import CourseDetails from './CourseDetails'
 import CourseTitle from './CourseTitle'
-
-const isCourseEqual = (c1: CourseSelector, c2: CourseSelector) => (c1.dept === c2.dept && c1.number === c2.number)
+import { isCourseEqual, filterRemoveCourse, getCourseKey } from '../courseUtil'
 
 export default () => {
   const [courseCart, setCourseCart] = useRecoilState(courseCartState)
@@ -19,7 +18,7 @@ export default () => {
   const courseSelected = (c: CourseSelector) => (courseCart.some((cartCourse) => isCourseEqual(cartCourse, c)))
 
   const canAddCourse = (c: CourseSelector) => (courseCart.length < 7)
-      && !courseSelected(c)
+  && !courseSelected(c)
 
   const addCourse = (c: Course) => {
     // check if the course is already in our list or if we're at limit
@@ -31,7 +30,8 @@ export default () => {
   }
 
   const removeCourse = (c: CourseSelector) => {
-    setCourseCart((currentCart) => currentCart.filter((cartCourse) => !(isCourseEqual(cartCourse, c))))
+    // todo: actually make this modular
+    setCourseCart((currentCart) => filterRemoveCourse(currentCart, c))
   }
 
   return (
@@ -41,21 +41,24 @@ export default () => {
           dept, number, title, description,
         } = course
 
+        const courseKey = getCourseKey(course)
+
         const courseIsSelected = courseSelected(course)
-        const onCurrentCourse = selectedCourse === `${dept}-${number}`
+        const onCurrentCourse = selectedCourse === courseKey
 
         return (
-          <li key={`${dept}-${number}`} className={`px-4 md:rounded-xl transition-colors ${courseIsSelected && 'bg-gray-50'}`}>
+          <li key={courseKey} className={`px-4 md:rounded-xl transition-colors ${courseIsSelected && 'bg-gray-50'}`}>
             <NavLink
-              to={onCurrentCourse ? '/courses' : `/courses/${dept}-${number}`}
+              to={onCurrentCourse ? '/courses' : `/courses/${courseKey}`}
               replace
             >
               <AnimatePresence initial={false}>
                 <div className="py-3 my-1 flex items-center">
-                  <CourseTitle dept={dept} number={number} title={title} />
+                  <CourseTitle course={course} />
                   <Button
                     className="ml-auto"
                     variant={courseIsSelected ? 'remove' : 'add'}
+                    symmetrical
                     disabled={!canAddCourse(course) && !courseIsSelected}
                     onClick={(e) => {
                       e.preventDefault()

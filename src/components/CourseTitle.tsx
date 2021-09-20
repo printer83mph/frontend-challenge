@@ -9,7 +9,11 @@ const courseColor = (number: number) : string => chroma({
   l: 0.9,
 }).css()
 
-const CourseTitle = ({ dept, number, title }: { dept: string, number: number, title: string }) => (
+type CourseTitleProps = {
+  course: Course
+}
+
+const CourseTitle = ({ course: { dept, number, title } }: CourseTitleProps) => (
   <h3 className="flex items-center">
     <div
       className="rounded shadow-sm p-2 mr-3 leading-5 text-gray-600 flex flex-col md:flex-row gap-1 items-center"

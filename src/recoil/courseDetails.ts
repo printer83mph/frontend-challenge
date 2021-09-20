@@ -1,4 +1,5 @@
 import { atom } from 'recoil'
+import { getCourseKey } from '../courseUtil'
 
 // where we cache our class details
 const courseDetailsState = atom({
@@ -7,8 +8,9 @@ const courseDetailsState = atom({
 })
 
 // async fetches details and updates recoil state man
-const fetchCourseDetails = async ({ dept, number }: { dept: string, number: number }) => {
-  const response = await fetch(`https://api.pennlabs.org/registrar/search?q=${dept.toLowerCase()}-${number}`)
+const fetchCourseDetails = async (course: CourseSelector) => {
+  console.log(getCourseKey(course))
+  const response = await fetch(`https://api.pennlabs.org/registrar/search?q=${getCourseKey(course)}`)
   const data = await response.json()
   return data
 }
